@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition template="./template.xhtml">
+            <ui:define name="content">
+                <div class="forms-main">
+                    <center>
+                        <h2 class="titulos">LISTADO DE PRUEBAS</h2>
+                    </center>
+                    <br></br><br></br>
+                    <div class="tables">
+                        <h:dataTable class="fl-table" value = "#{listadoPruebas.existencia}" var = "prueba" cellpadding="10" cellspacing="10">
+                            <h:column >
+                                <f:facet name = "header" ><strong>Año</strong></f:facet>
+                                <h:outputText value="#{prueba.ano}" style="font-weight: bold;"></h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name = "header"><strong>Saber 3</strong></f:facet>
+                                <h:graphicImage value="/resources/images/#{prueba.saber3? 'file' : 'cross'}.png" class="imagen-icono" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name = "header" ><strong>Saber 5</strong></f:facet>
+                                <h:graphicImage value="/resources/images/#{prueba.saber5? 'file' : 'cross'}.png" class="imagen-icono" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name = "header"><strong>Saber 9</strong></f:facet>
+                                <h:graphicImage value="/resources/images/#{prueba.saber9? 'file' : 'cross'}.png" class="imagen-icono" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name = "header"><strong>Saber 11</strong></f:facet>
+                                <h:graphicImage value="/resources/images/#{prueba.saber11? 'file' : 'cross'}.png" class="imagen-icono"  />
+                            </h:column>
+                            <h:column>
+                                <f:facet name = "header"><strong>Saber TyT</strong></f:facet>
+                                <h:graphicImage value="/resources/images/#{prueba.saberT? 'file' : 'cross'}.png" class="imagen-icono" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name = "header"><strong>Saber Pro</strong></f:facet>
+                                <h:graphicImage value="/resources/images/#{prueba.saberPro? 'file' : 'cross'}.png" class="imagen-icono" />
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                    <p:growl id="message-info"  showDetail="true"  rendered="#{not facesContext.validationFailed}"  class="message-info" life="5000"  ></p:growl>
+
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
+

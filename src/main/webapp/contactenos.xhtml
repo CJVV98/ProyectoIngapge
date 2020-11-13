@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+        <meta name="keywords" content="Augment Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+              Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Expires" content="0"/>
+        <link href="resources/css/bootstrap.min.css" rel='stylesheet' type='text/css'></link>
+        <link href="resources/css/style.css" rel='stylesheet' type='text/css'></link>
+        <link href="resources/css/font-awesome.css" rel="stylesheet"></link>
+        <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'></link>
+        <link rel="stylesheet" href="resources/css/icon-font.min.css" type='text/css'></link>
+        <script src="resources/js/jquery-1.10.2.min.js"></script>               
+    </h:head> 
+
+    <h:body>          
+        <div class="error_page">
+            <div class="error-top">
+                <center><h2 class="inner-tittle page">INGAPGE</h2></center>
+
+                <div class="com-mail">
+                    <h2 class="compose-bg"><i class="fa fa-envelope-o"></i> Contáctenos</h2>
+
+                    <h:form enctype="multipart/form-data">
+                        <h:inputText id="tb_nombre" value="#{contactenos.nombre}" maxlength="25" required="true"  class="form-control control3" a:placeholder="Nombre" requiredMessage="Nombre: campo obligatorio" style="width:95%">
+                        </h:inputText>
+                        <br></br>
+                        <h:inputText id="tb_apellido" value="#{contactenos.apellido}" maxlength="25" required="true" class="form-control control3"  a:placeholder="Apellido" requiredMessage="Apellido: campo Obligatorio"  style="width:95%">
+                        </h:inputText>
+                        <br></br>
+                        <h:inputText id="tb_correo" value="#{contactenos.correo}" maxlength="35" required="true" class="form-control control3" a:placeholder="email@ucundinamarca.edu.co" requiredMessage="Correo: campo Obligatorio"  style="width:95%">
+                        </h:inputText>
+                        <br></br>
+                        <h:inputText id="tb_mensaje" value="#{contactenos.mensaje}" maxlength="60" required="true" class="form-control control2" a:placeholder="Mensaje" requiredMessage="Mensaje: campo Obligatorio" style="width:95%"></h:inputText>
+                        <br></br>
+                        <h:commandButton id="b_enviar" value="Enviar" actionListener="#{contactenos.envio}" />                        
+                        <br></br>
+                        <br></br>
+                        <h:messages id="mensaje" rendered="#{facesContext.validationFailed}" errorStyle="color: red" warnStyle="color: #ff9033" infoStyle="color: #40b738" ></h:messages>
+                        <p:growl id="message-info"  showDetail="true"  rendered="#{not facesContext.validationFailed}"  class="message-info" life="5000"  ></p:growl>                        
+                    </h:form>   
+                </div>
+                <a id="btn-fixed" href="login.xhtml"><h:graphicImage value="/resources/images/flecha.png" width="50" height="50" title="Regresar al inicio de sesión" alt="Inicio de sesión"/><h:outputLabel value="Inicio de sesión  "/></a>
+            </div>
+          </div>
+    </h:body>
+</html>

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+        <meta name="keywords" content="Augment Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+              Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Expires" content="0"/>
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <link href="resources/css/bootstrap.min.css" rel='stylesheet' type='text/css'></link>
+        <link href="resources/css/style.css" rel='stylesheet' type='text/css'></link>
+        <link href="resources/css/font-awesome.css" rel="stylesheet"></link>
+        <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'></link>
+        <link rel="stylesheet" href="resources/css/icon-font.min.css" type='text/css'></link>
+        <script src="resources/js/jquery-1.10.2.min.js"></script>                
+    </h:head> 
+
+    <h:body onload="nobackbutton();">          
+        <div class="error_page">
+            <div class="error-top">
+                <h2 class="inner-tittle page">INGAPGE</h2>
+                <div class="login">
+                    <h3 class="inner-tittle t-inner">Inicio de sesión</h3>
+                    <div class="buttons login">
+                    </div>
+                    <h:form enctype="multipart/form-data"> 
+                        <h:outputLabel  value="Usuario"/>
+                        <h:inputText id="tb_usuario" value="#{login.usuario}" maxlength="20"  required="true"  requiredMessage="Usuario: campo obligatorio" style="width:95% "></h:inputText>
+                        <br></br>
+                      <br></br>
+                        <h:outputLabel value="Contraseña"/>
+                        <h:inputSecret id="tb_contrasena" maxlength="20" value="#{login.contrasena}" required="true" requiredMessage="Contraseña: campo obligatorio" style="width:95% "></h:inputSecret>
+                        <h:commandButton id="b_enviar" value="Acceder" actionListener="#{login.iniciarSesion()}" style="width: 30%;"/>
+                        <br></br>
+                        
+                        <br></br>
+                        <h:messages id="mensaje" rendered="#{facesContext.validationFailed}" errorStyle="color: red" infoStyle="color: #ff9033" ></h:messages>
+                        <div class="clearfix"></div>
+                         </h:form>
+                        <div class="new">
+                            <p class="sign" style="width:95%">¿No tienes una cuenta? &nbsp; &nbsp; <h:button  value="Contáctanos" outcome="contactenos"></h:button></p>
+                            <div class="clearfix"></div>
+                        </div>
+                        <p:growl id="message-info"  showDetail="true"  rendered="#{not facesContext.validationFailed}"  class="message-info" life="5000"  ></p:growl>                   
+                  
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function nobackbutton() {
+                window.location.hash = "no-back-button";
+                window.location.hash = "Again-No-back-button" //chrome
+                window.onhashchange = function () {
+                    window.location.hash = "no-back-button";
+                }
+            }
+        </script>
+
+        <script src="resources/js/jquery.nicescroll.js"></script>
+        <script src="resources/js/scripts.js"></script>
+        <script src="resources/js/bootstrap.min.js"></script>
+    </h:body>
+</html>

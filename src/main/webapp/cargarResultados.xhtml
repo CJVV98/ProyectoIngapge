@@ -1,0 +1,174 @@
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml">
+
+    <h:head>
+        <title>Análisis descriptivo</title>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="./template.xhtml">
+            <ui:define name="content">
+                <br></br>
+                <center><h2 class="titulos">CARGA DE RESULTADOS</h2></center>
+                <br></br>
+
+                <h:form enctype="multipart/form-data" >
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" style="background-color: white; color: black"><h3>Datos pruebas</h3></div>
+                        <div class="panel-body"><p>
+                                <p:selectOneRadio value="#{cargarResultados.vistaPaneles}" 
+                                                  onchange="submit()" valueChangeListener="#{cargarResultados.visibilidadPaneles}">
+                                    <f:selectItem itemValue="primaria" itemLabel="Resultados 3, 5 y 9" />
+                                    <f:selectItem itemValue="superior" itemLabel="Resultados 11, TyT y Pro" />
+                                </p:selectOneRadio>
+                            </p>
+                        </div>
+                    </div>
+                    <br></br>
+                    <center><h:panelGroup rendered="#{cargarResultados.ocultarSuperior}">
+                            <h3 class="titulos">Carga resultados Saber 11, TyT y Pro</h3>
+                            <br></br><img src="resources/images/file_search.jpg" alt="Carga de archivos" style="width: 100px; height: 100px;"/><br></br>
+                            <h:outputText value="Seleccione el archivo que desea subir"></h:outputText>
+                            <br></br><br></br>
+                            <h:inputFile id="file_resultadosAA" required="true"  value="#{cargaArchivos.direccion}" requiredMessage="*" style="background: white; color: black; border:0px"  >
+                            </h:inputFile>
+                            <h:message for="file_resultadosAA" errorStyle="color: red" warnStyle="color: #ff9033" infoStyle="color: #40b738" />   
+                            <br></br>
+                            <h:commandButton id="add" value="Agregar" actionListener="#{cargaArchivos.evaluacionArchivo()}" style="width: 20%;"/>
+                        </h:panelGroup></center>
+                    <h:panelGrid columns="2" rendered="#{cargarResultados.ocultarPrimaria}">
+                        <p:spacer width="50" height="50" /> 
+                        <h3>Carga resultados Saber 3, 5 y 9</h3>
+                        <br></br>
+                    </h:panelGrid>
+                    <div align="right" >
+                        <h:commandButton rendered="#{cargarResultados.ocultarPrimaria}" image="/resources/images/informacion.png"  immediate="true" actionListener="#{cargarResultados.cargarDialogo()}"  >
+                            <f:ajax execute="@all" render="@all" />
+                        </h:commandButton>
+                        <br></br>
+                       
+                        <h:commandButton rendered="#{cargarResultados.ocultarPrimaria}" value="Vista Notificaciones" image="/resources/images/notificaciones.png" title="Notificaciones de archivos"  immediate="true" action="vistaNotificaciones.xhtml"  >
+                            <f:ajax execute="@all" render="@all" />
+                        </h:commandButton>
+                    </div>
+                    <p:dialog id="dialo_ayuda"  style="text-align: justify;" header="AYUDA" widgetVar="dlg" resizable="false" modal="true" width="500" >
+                        <br></br> 
+                            <h:outputText value="Para la carga de archivos se debe tener en cuenta:" />
+                        
+                        <br> </br> 
+                            <h:outputText value="1. Si los resultados son del 2016 hacia atrás se debe cargar dos archivos (formato .zip), 
+                                          el primero corresponde a los resultados académicos y el segundo a los resultados socioeconómicos." />
+                        <br> </br>
+                            <h:outputText value="2. Si los resultados son del 2017 en adelante se debe cargar un archivo (formato .zip) 
+                                          el cual contempla los resultados académicos y la información socioeconómica de las tres pruebas." />
+                            
+                            <h:outputText value="3. El peso máximo permitido para el archivo zip es de 100MB" />
+                        
+                    </p:dialog>
+                    <br></br>
+                    <h:panelGroup style="background: white"  rendered="#{cargarResultados.ocultarPrimaria}">
+
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">
+                                <h:outputText id="L_nombre" value="Prueba a cargar:   "></h:outputText>
+                            </div>
+                            <div class="col-sm-7">
+                                <h:selectOneMenu id="selMen_prueba" requiredMessage="*" value="#{cargarResultados.nombre}" class="form-control1" 
+                                                 valueChangeListener = "#{cargarResultados.cargarAnos}" required="true" disabled="#{cargarResultados.visibilidadPanel eq true}" > 
+                                    <f:ajax execute="@this" render="selMen_ano"/>
+                                    <f:selectItem itemValue="#{null}"  itemLabel="Seleccionar prueba"/>
+                                    <f:selectItem itemValue="saber3" itemLabel="Saber 3"/>
+                                    <f:selectItem itemValue="saber5" itemLabel="Saber 5"/>    
+                                    <f:selectItem itemValue="saber9" itemLabel="Saber 9"/>  
+                                    <f:selectItem itemValue="saber359" itemLabel="Todas"/> 
+                                </h:selectOneMenu>
+                                <p:spacer width="10" height="10" /> 
+                                <h:message for="selMen_prueba" errorStyle="color: red" warnStyle="color: #ff9033" infoStyle="color: #40b738" />
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">
+                                <h:outputText id="L_ano" value="Año de presentación de la prueba:  "></h:outputText>
+                            </div>
+                            <div class="col-sm-7">
+                                <h:selectOneMenu id="selMen_ano"  requiredMessage="*"  value="#{cargarResultados.ano}" class="form-control1" required="true" disabled="#{cargarResultados.visibilidadPanel eq true}" >
+                                    <f:ajax execute="@this" />
+                                    <f:selectItem itemValue="#{null}"  itemLabel="#{cargarResultados.valor}  "/>
+                                    <f:selectItems value="#{cargarResultados.anos}" />   
+                                </h:selectOneMenu>
+                                <h:message for="selMen_ano" errorStyle="color: red" warnStyle="color: #ff9033" infoStyle="color: #40b738" />
+
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">
+                                <h:commandButton value="Continuar"  actionListener="${cargarResultados.cargarArchivos()}" rendered="#{cargarResultados.visibilidadPanel eq false}" >
+                                    <f:ajax render="@all" execute="@all" />   
+                                </h:commandButton> 
+                            </div>
+                        </div>
+
+                        <br></br>
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">
+                                <h:outputText id="L_nombreCarga" value="CARGAR ARCHIVOS" style="font-weight:bold" rendered="#{cargarResultados.visibilidadPanel eq true }"></h:outputText>
+                            </div>
+
+                        </div>
+                        <div class="clearfix"> </div>
+                        <br></br>
+                        <h:panelGroup id="panelCarga" style="background: white"  rendered="#{cargarResultados.visibilidadPanel eq true}"  >
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">
+                                    <h:outputText id="exampleInputFile"  value="Resultados de pruebas *(.zip)" ></h:outputText>
+                                </div>
+                                <div class="col-sm-7">
+                                    <h:inputFile id="file_resultadosA" required="true"  value="#{cargarResultados.archivoResultados}" requiredMessage="*" style="background:#0529634a;color: black; border:0px;"  >
+                                    </h:inputFile>
+                                    <h:message id="mensaje_resAcad" for="file_resultadosA" errorStyle="color: red" warnStyle="color: #ff9033" infoStyle="color: #40b738" />
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="clearfix"> </div>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">
+                                    <h:outputText value="Resultados datos socioeconómicos *(.zip)" rendered="#{cargarResultados.visibilidad eq true}"></h:outputText>
+                                </div>
+                                <div class="col-sm-7">
+                                    <h:inputFile id="file_resultadosS" required="true"  value="#{cargarResultados.archivoResultadosEconomicos}" requiredMessage="*" style="background: #0529634a; color: black; border:0px" rendered="#{cargarResultados.visibilidad eq true}" >    
+                                    </h:inputFile>
+                                    <h:message for="file_resultadosS" errorStyle="color: red" warnStyle="color: #ff9033"  rendered="#{cargarResultados.visibilidad eq true}" infoStyle="color: #40b738" />
+                                </div>
+                            </div>
+                            <br></br>
+                            <br></br>
+                            <div class="clearfix"> </div>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-2">
+                                    <h:commandButton value="Cargar archivos"  actionListener="#{cargarResultados.insertarResultados()}" >  
+                                    </h:commandButton>
+                                </div>
+                                <div class="col-sm-2">
+                                    <h:commandButton value="Cancelar Proceso"  style="background: #00C6D7; border-color: #00C6D7" immediate="true" actionListener="#{cargarResultados.cancelarProceso}"  />
+                                </div>
+                            </div>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                    <p:growl id="message-info"  showDetail="true"  rendered="#{not facesContext.validationFailed}"  class="message-info" life="5000"></p:growl>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

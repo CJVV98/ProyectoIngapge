@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./templateUser.xhtml">
+            <ui:define name="content">
+                <br></br>
+                <center><h2 class="titulos">ANÁLISIS DE RESULTADOS SABER 3</h2></center>
+                <div align="right">
+                    <h:commandButton image="/resources/images/informacion.png"  immediate="true" actionListener="#{saberTercero.cargarDialogo()}"  >
+                        <f:ajax execute="@all" render="@all" />
+                    </h:commandButton>
+                </div>
+                <p:dialog id="dialo_ayuda"  style="text-align: justify;" header="AYUDA" widgetVar="dlg" resizable="false" modal="true" width="450" >
+                    <br></br>
+                    <h:outputText value="En el siguiente formulario se muestra el análisis descriptivo realizado para las pruebas saber  tercero, inicialmente se debe
+                                  seleccionar el año y el indicador a analizar con esta información el aplicativo mostrara las siguientes graficas:" />
+                    <br></br>
+                    <h:outputText value="1. En la primera gráfica se evidencia la relación entre el género y los resultados por núcleo temático" />
+                    <br></br>
+                    <h:outputText value="2. En la segunda gráfica se muestra la relación a través de los años del género vs el puntaje del núcleo temático" />
+                    <br></br>
+                </p:dialog>
+
+                <br></br>
+                <h:form>
+                    <br></br>
+                    <h:panelGroup    style="background: white;border: none"   >
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-4">
+                            <h:outputText id="L_ano" value="Seleccionar año a analizar:  "></h:outputText>
+                        </div>
+                        <div class="col-sm-5">    
+                            <h:selectOneMenu id="sm_anos" value="#{saberTercero.ano}" class="form-control1" required="true" requiredMessage="*" >
+                                <f:selectItem itemValue="#{null}" itemLabel="Seleccionar Año "/>
+                                <f:selectItems value="#{saberTercero.anos}" /> 
+                            </h:selectOneMenu>
+                            <h:message for="sm_anos" errorStyle="color: red" warnStyle="color: #ff9033" infoStyle="color: #40b738" />
+                        </div>
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-4">
+                            <h:outputText id="L_indicador" value="Seleccionar indicador a analizar: "></h:outputText>
+                        </div>
+                        <div class="col-sm-5">     
+                            <h:selectOneMenu id="sm_indicadores" value="#{saberTercero.indicador}"  required="true" requiredMessage="*" class="form-control1"  >
+                                <f:selectItem itemValue="#{null}" itemLabel="Seleccionar indicador"/>
+                                <f:selectItem  itemValue="punt_lenguaje" itemLabel="Puntaje Lenguaje"/>
+                                <f:selectItem itemValue="punt_matematicas" itemLabel="Puntaje Matemáticas"/>
+                            </h:selectOneMenu>
+                            <h:message for="sm_indicadores" errorStyle="color: red" warnStyle="color: #ff9033" infoStyle="color: #40b738" />
+                        </div>
+                        <div class="col-sm-6"></div>
+                        <div class="col-md-6">
+                            <h:commandButton value="Analizar" action="${saberTercero.calcularResultados()}"/> 
+                        </div>
+                    </h:panelGroup>
+                    <p:spacer width="50" height="50" /> 
+                    <h:panelGroup rendered="#{saberTercero.contenido eq true}" style="margin: 10%">
+                        <div class="row">
+                            <div  class="col-md-1"></div>
+                            <div  class="col-md-10 graph-1"  >
+                                <div class="panel panel-primary" >
+                                    <div class="panel-heading" align="center">Género vs #{saberTercero.extraerIndicador(saberTercero.indicador)}</div>
+                                    <div class="panel-body"> <p:pieChart model="#{saberTercero.graficoDatos}" /></div>
+                                </div>
+                            </div>
+                            <div  class="col-md-1"></div>
+                        </div>
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{saberTercero.contenidoGrafico eq true}" style="margin: 10%">
+                        <div class="row">
+                            <div  class="col-md-1"></div>
+                            <div  class="col-md-10 graph-1"  >
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" align="center">Análisis de Indicador vs años</div>
+                                    <p:lineChart model="#{saberTercero.lineaAnos}"  />
+                                </div>
+                            </div>
+                            <div  class="col-md-1"></div>
+                        </div>
+                        <center>
+                            <h:commandButton image="/resources/images/pdf.png" action="#{saberTercero.generarReporte()}" />
+                        </center>
+                    </h:panelGroup>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
+

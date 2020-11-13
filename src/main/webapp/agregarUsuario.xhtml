@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition template="./template.xhtml">
+            <ui:define name="content">
+                <div class="forms-main">
+                    <center><h2 class="titulos"> REGISTRO DE USUARIOS</h2></center>
+                    <div class="graph-inner">
+                        <div class="graph-form">
+                            <h:form class="form-horizontal" >
+                                <div class="form-group">
+                                    <h:outputLabel style="font-weight: bold;" value="Nombre"/>
+                                    <br></br>
+                                    <div class="col-sm-8">
+                                        <h:inputText id="tb_nombre" value="#{agregar_usuario.nombre}" class="form-control control3" maxlength="20" required="true" style="width:95%" 
+                                                     requiredMessage="*" validatorMessage="Ingrese un nombre válido">
+                                            <f:validateRegex pattern="[a-zA-Z ]{3,20}"  />
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <h:message for="tb_nombre" errorStyle="color: red" warnStyle="color: #ff9033" infoStyle="color: #40b738" />
+                                    </div>
+                                </div>
+                                <br></br> 
+                                <br></br>
+                                <div class="form-group">
+                                    <h:outputLabel  value="Apellido" style="font-weight: bold;" />
+                                    <br></br>
+                                    <div class="col-sm-8">
+                                        <h:inputText id="tb_apellido" value="#{agregar_usuario.apellido}" required="true"  maxlength="20"  class="form-control control3" style="width:95%"  
+                                                     requiredMessage="*" validatorMessage="Ingrese un apellido válido">
+                                            <f:validateRegex pattern="[a-zA-Z ]{3,20}"  />
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-sm-4">
+                                       <h:message for="tb_apellido" errorStyle="color: red" warnStyle="color: #ff9033" infoStyle="color: #40b738" />
+                                    </div>
+                                </div>
+                                <br></br> 
+                                <br></br>
+                                <div class="form-group">
+                                    <h:outputLabel  value="Correo" style="font-weight: bold;"/>
+                                    <br></br>
+                                    <div class="col-sm-8">
+                                         <h:inputText id="tb_correo" value="#{agregar_usuario.correo}" required="true" class="form-control control3" style="width:95%" validatorMessage="Correo inválido"  requiredMessage="*">
+                                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <h:message for="tb_correo" errorStyle="color: red" warnStyle="color: #ff9033" infoStyle="color: #40b738" />
+                                    </div>
+                                </div>
+                                <br></br>
+                                <br></br>
+                                <div class="form-group">
+                                    <h:outputLabel value="Contraseña" style="font-weight: bold;"/>
+                                    <br></br>
+                                    <div class="col-sm-8">
+                                        <h:inputSecret id="tb_contrasena" value="#{agregar_usuario.contrasena}" required="true" class="form-control" style="width:95%"  requiredMessage="*" 
+                                                       validatorMessage="Ingrese una contraseña entre 5 y 30 caracteres">
+                                            <f:validateLength minimum="5" maximum="30"/>
+                                        </h:inputSecret>
+                                    </div>
+                                    <div class="col-sm-4">
+                                       <h:message for="tb_contrasena" errorStyle="color: red" warnStyle="color: #ff9033" infoStyle="color: #40b738" />
+                                    </div>
+                                </div>
+                                <br></br>
+                                <br></br>
+                                <h:commandButton id="b_agregar" value="Agregar" actionListener="#{agregar_usuario.registrar()}" onchange="submit()" />
+                               
+                            </h:form>
+                             <p:growl id="message-info"  showDetail="true"  rendered="#{not facesContext.validationFailed}"  class="message-info" life="5000"  ></p:growl>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
+

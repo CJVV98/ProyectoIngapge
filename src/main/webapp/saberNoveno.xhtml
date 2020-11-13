@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+        <ui:composition template="./templateUser.xhtml">
+            <ui:define name="content">
+                <br></br>
+                <center><h2 class="titulos">ANÁLISIS DE RESULTADOS SABER 9</h2></center>
+                <br></br>
+                <div align="right">
+                    <h:commandButton image="/resources/images/informacion.png"  immediate="true" actionListener="#{saberQuinto.cargarDialogo()}"  >
+                        <f:ajax execute="@all" render="@all" />
+                    </h:commandButton>
+                </div>
+                <p:dialog id="dialo_ayuda"  style="text-align: justify;" header="AYUDA" widgetVar="dlg" resizable="false" modal="true" width="450" >
+                    <br></br> 
+                    <h:outputText value="En el siguiente formulario se muestra el análisis descriptivo realizado para las pruebas saber  noveno, inicialmente se debe
+                                  seleccionar el año y el indicador a analizar con esta información el aplicativo mostrara las siguientes graficas:" />
+
+                    <br></br>
+                    <h:outputText value="1. Relación entre el género y el núcleo temático" />
+                    <br></br>
+                    <h:outputText value="2. Análisis del indicador a través de los años por genero" />
+                    <br></br>
+                    <h:outputText value="3. Análisis del comportamiento del indicador a través de los años; solo para mujeres" />
+                    <br></br>
+                    <h:outputText value="4. Análisis del comportamiento del indicador a través de las pruebas; solo para mujeres" />
+                    <br></br>
+                    <h:outputText value="5. Análisis de todos los indicadores" />
+                    <br></br>
+                </p:dialog>
+                <h:form>
+                    <br></br>
+                    <div  >
+                        <h:panelGroup  style="background: white;border: none"   >
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-4">
+                                <h:outputText id="L_ano" value="Seleccionar año a analizar:  "></h:outputText>
+                            </div> 
+                            <div class="col-sm-5">
+                                <h:selectOneMenu id="sm_anos" value="#{saberNoveno.ano}" class="form-control1" required="true" requiredMessage="*"   valueChangeListener="#{saberNoveno.seleccionar}">
+                                    <f:ajax execute="@this"  render="sm_indicadores"/>
+                                    <f:selectItem itemValue="#{null}" noSelectionOption="true" itemLabel="Seleccionar Año "/>
+                                    <f:selectItems value="#{saberNoveno.anos}" /> 
+                                </h:selectOneMenu>
+                                <h:message for="sm_anos" errorStyle="color: red" warnStyle="color: #ff9033" infoStyle="color: #40b738" />
+                            </div>
+
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-4">
+                                <h:outputText id="L_indicador" value="Seleccionar indicador a analizar: "></h:outputText>
+                            </div>
+                            <div class="col-sm-5">
+                                <h:selectOneMenu id="sm_indicadores" value="#{saberNoveno.indicador}" class="form-control1" required="true" requiredMessage="*" >
+                                    <f:ajax execute="@this" />
+                                    <f:selectItem itemValue="" itemLabel="Seleccionar indicador"/>
+                                    <f:selectItem itemValue="fami_educacionpadre" itemLabel="Educación padre"/>
+                                    <f:selectItem itemValue="fami_educacionmadre" itemLabel="Educación madre"/>
+                                    <f:selectItem itemValue="fami_tienecomputador" itemLabel="Computador"/>
+                                    <f:selectItem itemValue="fami_tieneinternet" itemLabel="Acceso a internet"/>
+                                    <f:selectItem itemValue="fami_tieneconsolavideojuegos" itemLabel="Consola de Videojuegos" rendered="#{saberNoveno.visibilidad eq true}" itemDisabled="#{saberNoveno.visibilidad eq false}"/>
+                                    <f:selectItem itemValue="punt_lenguaje" itemLabel="Puntaje Lenguaje"/>
+                                    <f:selectItem itemValue="punt_matematicas" itemLabel="Puntaje Matemáticas"/>
+                                </h:selectOneMenu>
+                                <h:message for="sm_indicadores" errorStyle="color: red" warnStyle="color: #ff9033" infoStyle="color: #40b738" />
+
+                            </div>
+                            <div class="col-sm-6"></div>
+                            <div class="col-md-6">
+                                <h:commandButton value="Analizar"  actionListener="${saberNoveno.calcularResultados}"  >
+                                    <f:ajax render="@all" execute="@all" />   
+                                </h:commandButton> 
+
+                            </div>
+                        </h:panelGroup>
+                    </div>
+                    <p:spacer width="50" height="50" /> 
+                    <div class="tab-inner">
+                        <h:panelGroup  id="p_graficas" rendered="#{saberNoveno.visibilidadContenido eq true}" >
+                            <div class="col-md-6 graph-2">
+                                <div class="panel panel-primary" >
+                                    <div class="panel-heading" align="center">Género vs #{saberNoveno.extraerIndicador(saberNoveno.indicador)}</div>
+                                    <div class="panel-body"> <p:pieChart id="pie" model="#{saberNoveno.grafico.graficoDatos}" style="width: 40%; height: 40%;"/></div>
+                                    <br></br>
+                                    <br></br>
+                                </div>
+                            </div>
+                            <div class="col-md-6 graph-2 second">
+                                <div class="panel panel-primary two">
+                                    <div class="panel-heading" align="center">Análisis de indicador por género</div>
+                                    <div class="panel-body two"><p:lineChart model="#{saberNoveno.grafico.lineaAnos}" style="width: 40%; height: 40%;"/>
+                                        <div class="row">
+                                            <div class="col-sm-1">
+                                                <h:outputText style="font-weight: bold; color: #021F4E" value="Año"/>
+                                            </div>
+                                            <div class="col-sm-11">
+                                                <h:selectOneRadio  style="width: 100%; margin-left: 10% " value = "#{saberNoveno.anoSeleccionado}"  valueChangeListener="#{saberNoveno.cargarDatosAnoPrueba}"> 
+                                                    <f:ajax  render="ot_resultados" />
+                                                    <f:selectItems  value="#{saberNoveno.anosCargados}" class="tablaano" var="objeto" itemValue="#{objeto.ano}" itemLabel="#{objeto.ano}" /> 
+                                                </h:selectOneRadio> 
+                                            </div>
+                                        </div>
+                                        <center>
+                                            <h:outputText id="ot_resultados" value="#{saberNoveno.resultadoAno}"/>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="clearfix"> </div>
+
+                            <div class="col-md-6 graph-2">
+                                <div class="panel panel-primary" >
+                                    <div class="panel-heading" align="center">Análisis de indicador por año</div>
+                                    <div class="panel-body"> <p:lineChart model="#{saberNoveno.grafico.lineaAnosIndicador}" style="width: 40%; height: 40%;"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 graph-2 second">
+                                <div class="panel panel-primary two">
+                                    <div class="panel-heading" align="center">Análisis de indicador por prueba</div>
+                                    <div class="panel-body two"><p:lineChart model="#{saberNoveno.grafico.lineaSaber}" style="width: 40%; height: 40%;"/>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="clearfix"> </div>
+                            <script type="text/javascript">
+                                function skinRadarChart() {
+                                    Chart.defaults.global.startAngle = 36;
+                                    Chart.defaults.global.tooltips.cornerRadius = 3;
+                                    Chart.defaults.global.tooltips.enabled = true;
+                                    Chart.defaults.global.tooltips.mode = 'point';
+                                    Chart.defaults.global.tooltips.position = 'nearest';
+                                }
+                            </script>
+                            <div class="col-md-12 graph-1">
+
+                                <div class="panel panel-primary" >
+                                    <div class="panel-heading" align="center">Análisis por años</div>
+                                    <div class="panel-body">
+                                        <p:radarChart model="#{saberNoveno.grafico.graficoPruebas}"/>
+                                        <br></br>
+                                        <div class="row">
+                                            <div class="col-sm-4"/>
+                                            <div class="col-sm-1">
+                                                <h:outputText style="font-weight: bold; color: #021F4E" value="Año"/>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <h:selectOneRadio  style="width: 50%; " value = "#{saberNoveno.anoConsulta}" valueChangeListener="#{saberNoveno.cargarDatosAno}"> 
+                                                    <f:ajax  render="dt_indicadores" />
+                                                    <f:selectItems  value="#{saberNoveno.anosCargados}" class="tablaano" var="objeto" itemValue="#{objeto.ano}" itemLabel="#{objeto.ano}" /> 
+                                                </h:selectOneRadio>  
+                                            </div>
+                                            <div class="col-sm-1"/>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12">
+
+                                                <div class="tables">
+                                                    <h:dataTable id="dt_indicadores" class="table" var="ano" value="#{saberNoveno.listadoInfoAno}">
+                                                        <h:column>
+                                                            <f:facet name = "header">Año</f:facet>
+                                                                #{ano.ano}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name = "header">Educación madre</f:facet>
+                                                                #{ano.educacionMadre}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name = "header">Educación padre</f:facet>
+                                                                #{ano.educacionPadre}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name = "header">Computador</f:facet>
+                                                                #{ano.computador}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name = "header">Consola VideoJuegos</f:facet>
+                                                                #{ano.consola}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name = "header">Acceso a Internet</f:facet>
+                                                                #{ano.accesoI}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name = "header">Puntaje Lenguaje</f:facet>
+                                                                #{ano.lenguaje}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name = "header">Puntaje Matematicas</f:facet>
+                                                                #{ano.matematica}
+                                                        </h:column>
+                                                    </h:dataTable>
+                                                </div>   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <center>
+                                <h:commandButton image="/resources/images/pdf.png" action="#{saberNoveno.generarReporte()}" />
+                            </center>
+                        </h:panelGroup>
+
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+   <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" ></meta>
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Expires" content="0"/>
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <link href="resources/css/bootstrap.min.css" rel='stylesheet' type='text/css' ></link>
+        <link href="resources/css/style.css" rel='stylesheet' type='text/css'></link>
+        <link href="resources/css/font-awesome.css" rel="stylesheet"> </link>
+        <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'></link>
+        <link rel="stylesheet" href="resources/css/icon-font.min.css" type='text/css' ></link>
+        <title>Ingapge</title>
+    </h:head>
+
+    <h:body>
+        <h:form enctype="multipart/form-data">
+            <div class="page-container">
+                <!--/content-inner-->
+                <div class="left-content">
+                    <div class="inner-content">
+                        <div class="header-section">
+                            <!--menu-right-->
+                            <div class="top_menu">           
+                                <!--/profile_details-->
+                                <div class="profile_details_left">
+                                    <ul class="nofitications-dropdown">
+
+                                        <li class="dropdown note" >
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope-o"></i>
+                                                <span class="badge">#{template.listadoCorreos.size()}</span>
+                                            </a>
+
+                                            <ul class="dropdown-menu two" style="#{template.listadoCorreos.size() gt 0 ? 'display:content': 'display:none'}">
+                                                <li >
+                                                    <div class="notification_header">
+                                                        <h3>Usted tiene #{template.listadoCorreos.size()} #{template.listadoCorreos.size() gt 1? 'correos' : 'correo'} </h3>
+                                                    </div>
+                                                </li>
+                                                <ui:repeat value="#{template.listadoCorreos}" var="correo">
+
+                                                    <li class="odd"><a href="#" style="background: white !important; color:black !important">
+                                                            <div class="user_img"><img src="resources/images/#{correo.tipo}.png" alt=""/></div>
+                                                            <div class="notification_desc" >
+                                                                <p>#{correo.mensaje}</p>
+                                                                <p><span>#{correo.fecha}</span></p>
+                                                            </div>
+                                                            <div class="clearfix"></div>	
+                                                        </a>
+                                                    </li>
+                                                </ui:repeat>
+                                                <li>
+                                                    <div class="notification_bottom">
+                                                        <a href="https://mail.google.com" style="background: white !important; color:black !important" target="_blank">Ir a bandeja de entrada</a>
+                                                    </div> 
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown note">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell-o"></i> 
+                                                <span class="badge">#{template.cantidadNotificaciones}</span>
+                                            </a>
+                                            <ul class="dropdown-menu two" style="#{template.cantidadNotificaciones gt 0 ? 'display:content;': 'display:none;'}">
+                                                <li >
+                                                    <div class="notification_header">
+                                                        <h3>Usted tiene #{template.cantidadNotificaciones} #{template.cantidadNotificaciones gt 1? 'notificaciones' : 'notificacion'} </h3>
+                                                    </div>
+                                                </li>
+                                                <ui:repeat value="#{template.listadoNotificaciones}" var="notificacion">
+                                                    <li class="odd"><a href="#{notificacion.mensaje.contains('Error') ? 'vistaNotificaciones.xhtml':'#'}" style="background: white !important; color:black !important">
+                                                            <div class="user_img"><img src="resources/images/#{notificacion.tipo}.png" alt=""/></div>
+                                                            <div class="notification_desc" >
+                                                                <p>#{notificacion.mensaje}: prueba #{notificacion.prueba}(#{notificacion.ano})</p>
+                                                                <p><span>#{notificacion.fecha}</span></p>
+                                                            </div>
+                                                            <div class="clearfix"></div>	
+                                                        </a>
+                                                    </li>
+                                                </ui:repeat>                                                
+                                                <li>
+                                                    <div class="notification_bottom">
+                                                        <a href="#" style="background: white !important; color:black !important">Ver todas</a>
+                                                    </div> 
+                                                </li>
+                                            </ul>
+                                        </li>	
+                                        <li class="dropdown note">
+                                            <a href="principalAdmin.xhtml" ><i class="fa fa-home"></i> </a>
+                                        </li>		   							   		
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div>
+                            <div class="outter-wp">
+                                <div id="content" class="left_content">
+                                    <ui:insert name="content">Content</ui:insert>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <header class="logo">
+                        <a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a>  <span id="logo"> <h1>INGAPGE</h1></span> 
+                        <!--<img id="logo" src="" alt="Logo"/>--> 
+
+                    </header>
+                    <div style="border-top:1px solid rgba(69, 74, 84, 0.7)"></div>
+                    <!--/down-->
+                    <div class="down">	
+                        <a href="#"><img src="resources/images/adminIngapge.jpg" style="width: 100px; height: 100px"></img></a>
+                        <a href="#"><span class=" name-caret">Administrador</span></a>
+                        <p>Universidad de Cundinamarca</p>
+                        <ul>
+                            <li> <a href="login.xhtml"><span>
+                                        <h:commandLink action="#{login.cerrarSesion()}" immediate="true" >
+                                            <i class="lnr lnr-power-switch"></i>
+                                        </h:commandLink>
+                                    </span></a></li>
+                        </ul>
+                    </div>
+                    <!--//down-->
+                    <div class="menu">
+
+                        <ul id="menu" >
+                            <li id="menu-academico" ><a href="#"><i class="fa fa-users"></i> <span>Usuarios</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+                                <ul id="menu-academico-sub" >
+                                    <li  id="menu-academico-avaliacoes" ><a href="agregarUsuario.xhtml"><span class="fa fa-plus"></span>Insertar</a></li>
+                                    <li id="menu-academico-boletim" ><a href="listadoUsuarios.xhtml"><span class="fa fa-tasks" ></span>Listado</a></li>
+
+                                </ul>
+                            </li>
+                            <li><a href="listadoPruebas.xhtml"><i class="fa fa-list"></i> <span>Listado de pruebas</span></a></li>
+                            <li><a href="cargarResultados.xhtml"><i class="fa fa-files-o"></i> <span>Cargar archivos pruebas</span></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+        <script>
+            var toggle = true;
+
+            $(".sidebar-icon").click(function () {
+                if (toggle)
+                {
+                    $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+                    $("#menu span").css({"position": "absolute"});
+                }
+                else
+                {
+                    $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+                    setTimeout(function () {
+                        $("#menu span").css({"position": "relative"});
+                    }, 400);
+                }
+
+                toggle = !toggle;
+            });
+        </script>
+        <script type="text/javascript" src="resources/js/TweenLite.min.js"></script>
+        <script type="text/javascript" src="resources/js/CSSPlugin.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="resources/js/bootstrap.min.js"></script>
+    </h:body>
+
+</html>

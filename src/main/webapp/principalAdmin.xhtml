@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>  
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    </head>
+
+    <body>
+        <ui:composition template="./template.xhtml">            
+            <ui:define name="content">
+                <center><h2 class="titulos">REGISTROS PRUEBAS SABER</h2></center>
+                <div class="titulos" align="right">
+                    <h:outputText value="Fecha: " class="h4"/>
+                    <h:outputLabel value="#{principalAdmin.fecha}"/>
+                </div>
+                <br></br>
+                <br></br>
+                <div class="titulos">
+                    <center><br></br><img src="resources/images/registros.png" alt="" style="width: 100px; height: 100px;"/><br></br><br></br>
+                        <h:outputLabel  value="Seleccione un año:"/>
+                        <p:spacer width="10" height="30" /> 
+                        <h:selectOneMenu value="#{principalAdmin.anio}" valueChangeListener="#{principalAdmin.actualizarTablaAnio}">
+                            <f:ajax execute="@this"  render="tabla"/>
+                            <f:selectItems  value="#{principalAdmin.anios}" var="anio" itemValue="#{anio}" itemLabel="#{anio}" /> 
+                        </h:selectOneMenu></center>
+                </div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <div class="tables">
+                    <p:panel id="tabla">
+                        <p:dataTable value = "#{principalAdmin.datosPruebas}" var="prueba">
+                            <p:column headerText="Prueba">
+                                <center><h:outputText value="#{prueba.prueba}"/></center>
+                            </p:column>
+                            <p:column headerText="Número de registros">
+                                <center><h:outputText value="#{prueba.cantidad}"/></center>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </div>        
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

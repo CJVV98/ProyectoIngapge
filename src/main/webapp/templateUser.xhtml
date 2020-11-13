@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+     <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" ></meta>
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Expires" content="0"/>
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <link href="resources/css/bootstrap.min.css" rel='stylesheet' type='text/css' ></link>
+        <link href="resources/css/style.css" rel='stylesheet' type='text/css'></link>
+        <link href="resources/css/font-awesome.css" rel="stylesheet"> </link>
+        <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'></link>
+        <link rel="stylesheet" href="resources/css/icon-font.min.css" type='text/css' ></link>
+        <title>Ingapge</title>
+    </h:head>
+    
+    <h:body>
+        <h:form enctype="multipart/form-data">
+            <div class="page-container">
+                <!--/content-inner-->
+                <div class="left-content">
+                    <div class="inner-content">
+                        <div class="header-section">
+                            <!--menu-right-->
+                            <div class="top_menu">           
+                                <!--/profile_details-->
+                                <div class="profile_details_left">
+                                    <ul class="nofitications-dropdown">
+                                        <li class="dropdown note">
+                                        </li>
+                                      	
+                                         <li class="dropdown note">
+                                             <a href="#" onclick="$('#myModalMessage').modal()" ><i class="fa fa-comment"></i> 
+                                               
+                                            </a>
+                                             <ul class="dropdown-menu two "  id="myModalMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" >
+                                                <li >
+                                                    <div class="notification_header">
+                                                        <h3>Enviar mensajes</h3>
+                                                    </div>
+                                                </li>
+                                                <br></br>
+                                                <center>
+                                                    <h:inputText id="tb_mensaje" value="#{templateUser.mensaje}" maxlength="60"  class="form-control control2"  style="width:75%;">
+                                                    </h:inputText>
+                                                     <br></br>
+                                                     <h:commandButton id="b_enviar"  value="Enviar" data-dismiss="modal" actionListener="#{templateUser.envio()}" />
+                                                      &nbsp;
+                                                      <h:commandButton id="b_cancelar" immediate="true" value="Cancelar" data-dismiss="modal"  />
+                                                </center>
+                                                <li>
+                                                <br></br>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown note"  >
+                                            <a href="principalUsuario.xhtml"><i class="fa fa-home"></i> </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="outter-wp">
+                            <div id="content" class="left_content">
+                                <ui:insert name="content">Content</ui:insert>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <header class="logo">
+                        <a href="#" class="sidebar-icon" > <span class="fa fa-bars"></span> </a>  <span id="logo"> <h1>INGAPGE</h1></span> 
+                    </header>
+                    <div style="border-top:1px solid rgba(69, 74, 84, 0.7)"></div>
+                    <!--/down-->
+                    <div class="down">	
+                        <img src="resources/images/user3.png" style="width: 100px; height: 100px;"></img>
+                        <a href="#"><span class=" name-caret">Usuario: 
+                                <h:outputLabel value="#{templateUser.nombre}"/>
+                            </span></a>
+                        <p>Universidad de Cundinamarca</p>
+                        <ul>
+
+
+                            <li> <a href="login.xhtml"><span>
+                                        <h:commandLink  action="#{login.cerrarSesion()}" immediate="true" >
+                                            <i class="lnr lnr-power-switch"></i>
+                                        </h:commandLink>
+                                    </span></a></li>
+                        </ul>
+                    </div>
+                    <!--//down-->
+                    <div class="menu">
+
+                        <ul id="menu" >
+                            <li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span>Educación Primaria</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+                                <ul id="menu-academico-sub" >
+                                    <li id="menu-academico-avaliacoes" ><a href="saberTercero.xhtml">Saber 3</a></li>
+                                    <li id="menu-academico-boletim" ><a href="saberQuinto.xhtml">Saber 5</a></li>
+                                </ul>
+                            </li>
+                            <li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span>Educación Media</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+                                <ul id="menu-academico-sub" >
+                                    <li id="menu-academico-avaliacoes" ><a href="saberNoveno.xhtml">Saber 9</a></li> 
+                                </ul>
+                            </li>
+                            <li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span>Educación Secundaria</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+                                <ul id="menu-academico-sub" >
+                                    <li id="menu-academico-avaliacoes" ><a href="saber11.xhtml">Saber 11</a></li> 
+                                </ul>
+                            </li>
+                            <li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span>Educación Superior</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+                                <ul id="menu-academico-sub" >
+                                    <li id="menu-academico-avaliacoes" ><a href="saberTyT.xhtml">Saber TyT</a></li>
+                                    <li id="menu-academico-boletim" ><a href="saberPro.xhtml">Saber Pro</a></li>
+                                </ul>
+                            </li>
+                            <li><a href=""><i class="fa fa-tachometer"></i> <span>Analisis Predictivo</span><span class="fa fa-angle-right" style="float: right"></span></a>
+                                <ul id="menu-academico-sub" >
+
+                                    <li id="menu-academico-avaliacoes" ><a href="analisisPredictivoBasico.xhtml">Saber Básico</a></li>
+                                    <li id="menu-academico-boletim" ><a href="predictivoSBSuperior.xhtml">Saber Superior</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <p:growl id="message-info-template"  showDetail="true"  rendered="#{not facesContext.validationFailed}"  class="message-info" life="5000"  ></p:growl>                        
+        </h:form>
+        <script>
+
+
+            var toggle = true;
+
+            $(".sidebar-icon").click(function () {
+                if (toggle)
+                {
+                    $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+                    $("#menu span").css({"position": "absolute"});
+                }
+                else
+                {
+                    $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+                    setTimeout(function () {
+                        $("#menu span").css({"position": "relative"});
+                    }, 400);
+                }
+
+                toggle = !toggle;
+            });
+        </script>
+        <script type="text/javascript" src="resources/js/TweenLite.min.js"></script>
+        <script type="text/javascript" src="resources/js/CSSPlugin.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="resources/js/bootstrap.min.js"></script>
+    </h:body>
+
+</html>

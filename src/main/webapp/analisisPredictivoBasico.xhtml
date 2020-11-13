@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templateUser.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <script>
+
+    </script>
+    <ui:define name="content">
+
+        <center>
+            <h2 class="titulos">ANÁLISIS PREDICTIVO DE EDUCACIÓN BÁSICA</h2>
+        </center>
+        <br></br>
+        <div align="right">
+            <h:commandButton image="/resources/images/informacion.png"  immediate="true" actionListener="#{analisisPredictivoBasico.cargarDialogo()}"  >
+                <f:ajax execute="@all" render="@all" />
+            </h:commandButton>
+        </div>
+        <p:dialog id="dialo_ayuda"  style="text-align: justify;" header="AYUDA" widgetVar="dlg" resizable="false" modal="true" width="450" >
+            <br></br>
+            <h:outputText value="En el análisis predictivo realizado para las pruebas saber 3, 5 y 9, se da a conocer gráficamente la influencia de los indicadores sobre los puntajes, 
+                          adicionalmente se permite al usuario realizar filtros especiales en cuanto al indicador,  
+                          género y puntaje. " />
+            <br></br>
+            <i class="fa fa-filter"></i> <h:outputText value=" Boton usado para aplicar filtros" />       
+            <br></br>
+        </p:dialog>
+        <div class="panel-mujer panel-primary-mujeres">
+            <h:panelGroup   style="background: white"  >
+                <div class="row">
+                    <div class="col-sm-2">
+                        <h:outputText value="Seleccionar por " class="h4"/>
+                    </div>
+                    <div class="col-sm-8">
+                        <h:selectOneRadio  style="width: 100%; " value = "#{analisisPredictivoBasico.prueba}" valueChangeListener="#{analisisPredictivoBasico.seleccionar}" > 
+                            <f:ajax render="@all" execute="@all"  /> 
+                            <f:selectItem class="tablaano" itemValue="saber5" itemLabel="Saber 5"  />
+                            <f:selectItem class="tablaano" itemValue="saber9" itemLabel="Saber 9" />
+                        </h:selectOneRadio>
+                        <h:selectOneRadio  id="sor_prueba" style="width: 92%; "  rendered="#{analisisPredictivoBasico.prueba.length() gt 0}" value = "#{analisisPredictivoBasico.nucleoTematico}" valueChangeListener="#{analisisPredictivoBasico.cargarPrueba}" > 
+                            <f:ajax render="@all" execute="@all" /> 
+                            <f:selectItem class="tablaano" itemValue="punt_matematicas" itemLabel="Puntaje Matematicas"  />
+                            <f:selectItem class="tablaano" itemValue="punt_lenguaje" itemLabel="Puntaje Lenguaje" />
+                        </h:selectOneRadio>
+                    </div>
+                </div>
+            </h:panelGroup>
+        </div>
+        <div class="tables">
+            <h:panelGroup id="pG_graficas" rendered="#{analisisPredictivoBasico.mostrarGraficas eq true}" >
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="panel-mujer panel-primary-mujeres" style="border:none">
+                            <h:panelGroup   style="background: white; "  >
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h:outputText value="Filtrar por " class="h4"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <h:commandLink id="b_filtro" title="Aplicar fitros" class="bt_puntajes" style="border:none;" actionListener="#{analisisPredictivoBasico.aplicarFiltros}">
+                                            <i class="fa fa-filter" style="padding-left: 1px !important;" ></i>
+                                            <f:ajax execute="@all" render="p_graficos"/>
+                                        </h:commandLink>
+                                    </div>
+                                </div>
+                                <br></br>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <h:commandLink id="b_indicador" value="Indicador" class="bt_puntajes" actionListener="#{analisisPredictivoBasico.ocultarPanelIndicador}">
+                                            <i class="fa fa-angle-double-down" style="padding-left: 45px !important;" ></i>
+                                            <f:ajax execute="@this" render="div_indicador"/>
+                                        </h:commandLink>
+                                        <h:panelGroup class="dropdowno" id="div_indicador" style="#{analisisPredictivoBasico.mostrarIndicador ?  'display:content':'display:none'}">
+                                            <h:selectManyCheckbox id="checkbox" value="#{analisisPredictivoBasico.filtroIndicador}" style="white-space: nowrap; margin:10px" layout="pageDirection">
+                                                <f:ajax execute="@this"  /> 
+                                                <f:selectItem itemValue="fami_educacionpadre" itemLabel="Educación padre"/>
+                                                <f:selectItem itemValue="fami_educacionmadre" itemLabel="Educación madre"/>
+                                                <f:selectItem itemValue="fami_tienecomputador" itemLabel="Computador"/>
+                                                <f:selectItem itemValue="fami_tieneinternet" itemLabel="Acceso a internet"/>
+                                                <f:selectItem itemValue="fami_tieneconsolavideojuegos" itemLabel="Consola de Videojuegos" />
+                                            </h:selectManyCheckbox>
+                                        </h:panelGroup>
+                                    </div>
+                                </div>
+                                <br></br>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <h:commandLink id="b_genero" value="Género" class="bt_puntajes" actionListener="#{analisisPredictivoBasico.ocultarPanelGenero()}">
+                                            <i class="fa fa-angle-double-down" style="padding-left: 59px !important;" ></i>
+                                            <f:ajax execute="@this" render="div_genero"/>
+                                        </h:commandLink>
+                                        <h:panelGroup class="dropdowno" id="div_genero" style="#{analisisPredictivoBasico.mostrarGenero ?  'display:content':'display:none'}">
+                                            <h:selectManyCheckbox id="cb_genero" value="#{analisisPredictivoBasico.filtroGenero}" style="white-space: nowrap; margin:10px" layout="pageDirection">
+                                                <f:ajax execute="@this"  /> 
+                                                <f:selectItem itemValue="Hombre" itemLabel="Hombre"/>
+                                                <f:selectItem itemValue="Mujer" itemLabel="Mujer"/>
+                                            </h:selectManyCheckbox>
+                                        </h:panelGroup>
+                                    </div>
+                                </div>
+                                <br></br>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <h:commandLink id="b_puntaje"   class="bt_puntajes" value="Puntaje" actionListener="#{analisisPredictivoBasico.ocultarPanelPuntaje()}">
+                                            <i class="fa fa-angle-double-down" style="padding-left: 57px !important;" ></i>
+                                            <f:ajax execute="@this" render="div_puntaje"/>
+                                        </h:commandLink>
+                                        <h:panelGroup class="dropdowno" id="div_puntaje" style="#{analisisPredictivoBasico.mostrarPuntaje ?  'display:content':'display:none'}">
+                                            <br></br>
+                                            <p:spacer width="4%" height="4%" /> 
+                                            <div class="row">
+                                                <h:outputText id="displayRange" value=" Entre #{analisisPredictivoBasico.filtroMinimo} y #{analisisPredictivoBasico.filtroMaximo}" style="margin: 20px" />
+                                            </div>
+                                            <div class="row">
+                                                <p:slider minValue="0" style="background: rgb(204, 204, 204); margin: 20px" maxValue="500"  for="txt6,txt7" display="displayRange" range="true" displayTemplate=" Entre {min} y {max}"  > 
+                                                </p:slider>
+                                            </div>
+                                            <h:inputHidden id="txt6" value="#{analisisPredictivoBasico.filtroMinimo}" />
+                                            <h:inputHidden id="txt7" value="#{analisisPredictivoBasico.filtroMaximo}" />
+                                        </h:panelGroup>
+                                    </div>
+                                </div>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                    <h:panelGroup id="p_graficos">
+                        <div class="col-sm-8" >
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p:growl id="message-info"  showDetail="true"   ></p:growl>
+                                    <p:barChart id="graf_genero"   model="#{analisisPredictivoBasico.graficaGenero}"  style="width: 100%; height: 500px;" rendered="#{analisisPredictivoBasico.graficaPredicciones.data eq null}">
+                                    </p:barChart>
+                                </div>
+                                <div class="col-sm-12">
+                                    <p:barChart id="graf_predicciones"   model="#{analisisPredictivoBasico.graficaPredicciones}" style="width: 100%; height: 501px;"  rendered="#{analisisPredictivoBasico.graficaPredicciones.data ne null}">
+                                    </p:barChart>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="panel-datos panel-primary-mujeres">
+                                    <h:panelGroup id="p_informacion_indicador">
+                                        <div class="row">
+                                            <center>
+                                                <h:outputLabel value="Información del indicador"/>
+                                                &nbsp;
+                                                <h:selectOneMenu id="sm_indicadores"  class="form-control1" valueChangeListener="#{analisisPredictivoBasico.consultarInfoIndicador}" value="#{analisisPredictivoBasico.infoIndicador}" >
+                                                    <f:ajax render="p_info" execute="@all" /> 
+                                                    <f:selectItem  itemLabel="Seleccionar" rendered="true" itemDisabled="true" />
+                                                    <f:selectItems value="#{analisisPredictivoBasico.indicadores}" var="indicadorSel" 
+                                                                   itemLabel="#{analisisPredictivoBasico.extraerIndicador(indicadorSel)}" itemValue="#{indicadorSel}" />
+
+                                                </h:selectOneMenu>
+                                            </center>
+                                        </div>
+                                        <h:panelGroup class="row" id="p_info">
+                                            <div >
+                                                <center>
+                                                    <table id="tb_info">
+                                                        <tr>
+                                                            <ui:repeat value="#{analisisPredictivoBasico.listaConsulta}" var="consulta">
+                                                                <td >
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <h:graphicImage value="/resources/images/#{consulta.genero eq 'Mujer' ? 'estMujer' : 'estHombre'}.png" class="imagen-icono" />
+                                                                            <h:outputLabel value=" #{consulta.genero}"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <h:outputLabel value="Descripcion: #{consulta.descripcion.contains('inicial') ? 'No afecta': consulta.descripcion }"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <h:outputLabel value="Puntajes entre : #{consulta.minPuntaje} y #{consulta.maxPuntaje}"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <h:outputLabel value=" Probabilidad #{consulta.probabilidad} %"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <h:commandLink value="Ver mas" class="bt_mas_detalles" actionListener="#{analisisPredictivoBasico.consultarIndicador(consulta)}">
+                                                                        <i class="fa fa-search-plus"></i>
+                                                                        <f:ajax execute="@all" render="@all" />
+                                                                    </h:commandLink>
+
+                                                                </td>
+                                                                <td ><p:spacer width="20px" height="5%" /></td>
+                                                            </ui:repeat>
+                                                        </tr>
+                                                    </table>
+                                                </center>
+                                            </div>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                </div>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                </div>
+                <center>
+                    <h:commandButton image="/resources/images/pdf.png" action="#{analisisPredictivoBasico.generarReporte()}" />
+                </center>
+            </h:panelGroup>
+        </div>
+        <p:dialog  header="#{consulta.genero}" style="background: #eeeeee" widgetVar="dlg2" modal="true" >
+            <p:donutChart  model="#{analisisPredictivoBasico.graficaIndicador}"  style="width: 100%; height: 250px;"/>
+            <br></br>
+            <div class="tables">
+                <h:dataTable class="f2-table" value = "#{analisisPredictivoBasico.listaIndicador}" var = "indicador" cellpadding="2" cellspacing="2">
+                    <h:column >
+                        <f:facet name = "header" ></f:facet>
+                        <i class="fa fa-circle" style="color:#{indicador.datoIndicador} "></i>
+                    </h:column>
+                    <h:column >
+                        <f:facet name = "header" >%</f:facet>
+                        <h:outputText  value="#{indicador.probabilidad}" ></h:outputText>
+                    </h:column>
+                    <h:column >
+                        <f:facet name = "header" >Descripcion</f:facet>
+                        <h:outputText  value="#{indicador.descripcion.contains('inicial') ? 'No Afecta': indicador.descripcion }" ></h:outputText>
+                    </h:column>
+                    <h:column >
+                        <f:facet name = "header" >Puntajes</f:facet>
+                        <h:outputText value="#{indicador.minPuntaje} - #{indicador.maxPuntaje}" ></h:outputText>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </p:dialog> 
+
+
+    </ui:define>
+
+</ui:composition>

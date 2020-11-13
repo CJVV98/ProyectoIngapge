@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+        <ui:composition template="./template.xhtml">
+            <ui:define name="content">
+                <center>
+                    <h2 class="titulos">LISTADO DE USUARIOS</h2>
+                </center>
+                <br></br>
+                <div class="tables">
+                    <h:dataTable value="#{listado_usuarios.usuarios}"  class="table table-hover" var="usuarios"
+                                 cellspacing="6" cellpadding="6">
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header"> Nombre </f:facet>
+                            <!-- row record -->
+                            <h:outputText value="#{usuarios.nombre}" rendered="#{not usuarios.editar}" ></h:outputText>
+                            <h:inputText id="tb_nombre" value="#{usuarios.nombre}" rendered="#{usuarios.editar}" required="true" requiredMessage="*" style="background: white !important; color: black;"
+                                         validatorMessage="Nombre inválido">
+                                <f:validateRegex pattern="[a-zA-Z ]{3,20}"  />
+                            </h:inputText>
+                            <h:message for="tb_nombre" errorStyle="color: red"  />      
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header"> Apellido </f:facet>
+                            <h:outputText value="#{usuarios.apellido}" rendered="#{not usuarios.editar}"></h:outputText>
+                            <h:inputText id="tb_apellido" value="#{usuarios.apellido}" rendered="#{usuarios.editar}" required="true" requiredMessage="*"  style="background: white !important; color: black;"
+                                         validatorMessage="Apellido inválido">
+                                <f:validateRegex pattern="[a-zA-Z ]{3,20}"  />
+                            </h:inputText>
+                            <h:message for="tb_apellido"  errorStyle="color: red"  />
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header"> Correo Institucional </f:facet>
+                            <h:outputText value="#{usuarios.correo}" rendered="#{not usuarios.editar}"></h:outputText>
+                            <h:inputText id="tb_correo" value="#{usuarios.correo}" readonly="true" rendered="#{usuarios.editar}" style="background: white !important; color: black;"  >
+                            </h:inputText>
+                            <h:message for="tb_correo"  errorStyle="color: red"  />
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header"> Usuario </f:facet>
+                            <h:outputText value="#{usuarios.usuario}" rendered="#{not usuarios.editar}"></h:outputText>
+                            <h:inputText value="#{usuarios.usuario}" rendered="#{usuarios.editar}" readonly="true" style="background: white !important; color: black;"></h:inputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header"> Contraseña </f:facet>
+                            <h:outputText value="#{usuarios.contrasena}" rendered="#{not usuarios.editar}"></h:outputText>
+                            <h:inputText id="tb_contrasena" value="#{usuarios.contrasena}" rendered="#{usuarios.editar}" required="true" requiredMessage="*" style="background: white !important; color: black;"
+                                          validatorMessage="Ingrese una contraseña entre 5 y 30 caracteres">
+                                <f:validateLength minimum="5" maximum="30"/>
+                            </h:inputText>
+                            <h:message for="tb_contrasena"  errorStyle="color: red"  />
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">  </f:facet>
+                            <h:commandLink  action="#{listado_usuarios.editar(usuarios)}" rendered="#{not usuarios.editar}" style="background: transparent !important"><i class="fa fa-pencil"></i></h:commandLink>
+                            &nbsp;
+                            <h:commandLink action="#{listado_usuarios.guardar(usuarios)}" rendered="#{usuarios.editar}" style="background: transparent !important"><i class="fa fa-check"></i></h:commandLink>
+                            &nbsp;
+                            <h:commandLink action="#{listado_usuarios.cancelar(usuarios)}" immediate="true" rendered="#{usuarios.editar}" style="background: transparent !important"><i class="fa fa-times"></i></h:commandLink>
+                            &nbsp;
+                            <h:commandLink  action="#{listado_usuarios.eliminar(usuarios.idUsuario)}" rendered="#{not usuarios.editar}" style="background: transparent !important"><i class="fa fa-trash-o"></i></h:commandLink>
+                        </h:column>
+
+                    </h:dataTable>
+                    <p:growl id="message-info"  showDetail="true"  rendered="#{not facesContext.validationFailed}"  class="message-info" life="5000"  ></p:growl>
+
+                </div>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

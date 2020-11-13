@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templateUser.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <div align="right">
+            <h:outputText value="Fecha: " class="h4"/>
+            <h:outputLabel value="#{principalUsuario.fecha}"/>
+        </div>
+        <center>
+            <h2 class="titulos">CANTIDAD DE MUJERES EN LAS PRUEBAS</h2>
+        </center>
+        <br></br>
+        <br></br>
+        <div class="form-group" > 
+            <div class="panel-mujer panel-primary-mujeres">
+                <div ><p>
+                        <h:panelGroup   style="background: white"  >
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <h:outputText value="Filtrar por " class="h4"/>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h:selectOneRadio  style="width: 100%; " value = "#{principalUsuario.tipo}" valueChangeListener="#{principalUsuario.seleccionar}" > 
+                                        <f:ajax render="@all" execute="@all" /> 
+                                        <f:selectItem class="tablaano" itemValue="prueba" itemLabel="Prueba"  />
+                                        <f:selectItem class="tablaano" itemValue="ano" itemLabel="Año" />
+                                    </h:selectOneRadio>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <h:panelGroup id="p_anos"  style="background: white" rendered="#{principalUsuario.tipo == 'ano'}"  >
+                                    <div class="col-sm-2">
+                                        <h:outputText value="Año " class="h4"/>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <h:selectOneMenu   value = "#{principalUsuario.anio}" valueChangeListener="#{principalUsuario.actualizarTablaAno}"> 
+                                            <f:ajax execute="@this"  render="tb_mujeres"/>
+                                            <f:selectItems  value="#{principalUsuario.anos}" class="tablaano" var="anio" itemValue="#{anio}" itemLabel="#{anio}" /> 
+                                        </h:selectOneMenu> 
+                                    </div>
+                                    <div class="col-sm-8"/>
+                                </h:panelGroup>
+                                <h:panelGroup id="p_pruebas"  style="background: white"  rendered="#{principalUsuario.tipo == 'prueba'}"  >
+                                    <div class="col-sm-2">
+                                        <h:outputText value="Prueba " class="h4"/>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <h:selectOneMenu   value = "#{principalUsuario.prueba}" valueChangeListener="#{principalUsuario.actualizarTablaPrueba}"> 
+                                            <f:ajax execute="@this"  render="tb_mujeres"/>
+                                            <f:selectItem itemValue="saber3" itemLabel="Saber 3" />
+                                            <f:selectItem itemValue="saber5" itemLabel="Saber 5" />
+                                            <f:selectItem itemValue="saber9" itemLabel="Saber 9" />
+                                            <f:selectItem itemValue="sb11" itemLabel="Saber 11" />
+                                            <f:selectItem itemValue="saberpro" itemLabel="Saber Pro" />
+                                            <f:selectItem itemValue="sabertyt" itemLabel="Saber TyT" />
+                                        </h:selectOneMenu> 
+                                    </div>
+                                    <div class="col-sm-8"/>
+                                </h:panelGroup>
+                            </div>
+                        </h:panelGroup>
+                    </p>
+                </div>
+            </div>
+            <br></br>
+            <br></br>
+            <div class="tables">
+                <h:panelGroup id="tb_mujeres"  >
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <p:spacer width="1%" height="1%" /> 
+                            <h:dataTable class="table table-bordered" value = "#{principalUsuario.datosPruebas}"  var = "prueba">
+                                <h:column>
+                                    <f:facet name = "header" ><strong style="color:#052963">Nombre de la prueba</strong></f:facet>
+                                    <h:outputText value="#{prueba.prueba}" style="color:#000000"></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name = "header"><strong style="color:#052963">Año</strong></f:facet>
+                                    <h:outputText value="#{prueba.ano}" style="color:#000000"></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name = "header" ><strong style="color:#052963">Cantidad Mujeres
+                                    </strong></f:facet>
+                                    <h:graphicImage value="/resources/images/#{prueba.prueba.length() eq 7 ? 'nina' : 'mujer'}.png" class="imagen-icono" />
+                                     <h:outputText value="#{prueba.cantidad}" style="color:#000000"></h:outputText>
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+                        <div class="col-sm-7">
+                             <p:barChart model="#{principalUsuario.graficaMujeres}"  style="width: 90%; height: 311px;"/>
+                        </div>
+                    </div>
+                </h:panelGroup>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

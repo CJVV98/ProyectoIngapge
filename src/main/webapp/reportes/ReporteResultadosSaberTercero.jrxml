@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="analisis" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isTitleNewPage="true" isSummaryNewPage="true" uuid="9b2567d2-91c2-49b9-9695-67386f58076d">
+	<property name="ireport.zoom" value="0.9090909090909102"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="2956"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#3A7373">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFE6E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#0088FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#E6F3FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#657FCB">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#CFD4E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#00132A"/>
+			<bottomPen lineWidth="1.0" lineColor="#00132A"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#778899">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#00132A"/>
+			<bottomPen lineWidth="0.5" lineColor="#00132A"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFDFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#00132A"/>
+			<bottomPen lineWidth="0.5" lineColor="#00132A"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#00132A"/>
+			<bottomPen lineWidth="0.5" lineColor="#00132A"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#001232"/>
+			<bottomPen lineWidth="1.0" lineColor="#001232"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#778899">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#001232"/>
+			<bottomPen lineWidth="0.5" lineColor="#001232"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFDFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#001232"/>
+			<bottomPen lineWidth="0.5" lineColor="#001232"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#001232"/>
+			<bottomPen lineWidth="0.5" lineColor="#001232"/>
+		</box>
+	</style>
+	<style name="table 5">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#000033"/>
+			<bottomPen lineWidth="1.0" lineColor="#000033"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#45678A">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000033"/>
+			<bottomPen lineWidth="0.5" lineColor="#000033"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#CFDAE6">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000033"/>
+			<bottomPen lineWidth="0.5" lineColor="#000033"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000033"/>
+			<bottomPen lineWidth="0.5" lineColor="#000033"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#323265">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#CFCFE6">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="dataSetPieIndicador" uuid="cb371fd2-2d53-47c6-a228-37d56b9f608e">
+		<field name="label" class="java.lang.String"/>
+		<field name="puntaje[0]" class="java.lang.Double"/>
+	</subDataset>
+	<subDataset name="dataSetLineGenero" uuid="61836aa7-f936-4201-9a4e-91155cef6cfa">
+		<field name="label" class="java.lang.String"/>
+		<field name="puntaje[0]" class="java.lang.Double"/>
+		<field name="puntaje[1]" class="java.lang.Double"/>
+		<field name="respuesta[0]" class="java.lang.String"/>
+		<field name="respuesta[1]" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="imagen" class="java.lang.String"/>
+	<field name="datoslineGenero" class="java.util.List"/>
+	<field name="datosReporte" class="java.util.List"/>
+	<field name="tituloInicial" class="java.lang.String"/>
+	<field name="tituloPie" class="java.lang.String"/>
+	<background>
+		<band height="802"/>
+	</background>
+	<title>
+		<band height="802" splitType="Stretch">
+			<image>
+				<reportElement x="4" y="0" width="559" height="802" uuid="038da0a4-c89d-4785-9549-20f399e2527d"/>
+				<imageExpression><![CDATA[$P{imagen}]]></imageExpression>
+			</image>
+			<line>
+				<reportElement style="SubTitle" mode="Transparent" x="32" y="790" width="67" height="1" forecolor="#FFFFFF" uuid="d8b6ffa4-6d38-46bb-a7cd-ee89e085dad5"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Double" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="129" y="-12" width="310" height="291" uuid="c66518f1-75e0-402c-8799-89bc36690cf9"/>
+				<graphicElement>
+					<pen lineWidth="25.0" lineColor="#42DEDD"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="193" y="-12" width="279" height="260" uuid="b4eb3128-81bf-4808-91f9-4810ee235551"/>
+				<graphicElement>
+					<pen lineWidth="25.0" lineColor="#313550"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="-9" y="144" width="618" height="532" uuid="b61060f5-61e2-4439-8c2b-7bd224f4c968"/>
+				<graphicElement>
+					<pen lineWidth="25.0" lineColor="#313550"/>
+				</graphicElement>
+			</line>
+			<ellipse>
+				<reportElement positionType="Float" x="356" y="478" width="291" height="257" backcolor="#FFFFFF" uuid="b4540072-6199-4cff-88db-c636f998219d"/>
+				<graphicElement>
+					<pen lineWidth="12.0" lineColor="#42DEDD"/>
+				</graphicElement>
+			</ellipse>
+			<textField>
+				<reportElement mode="Opaque" x="425" y="651" width="158" height="51" forecolor="#000000" backcolor="#FFFFFF" uuid="beab4e26-954f-46e6-883b-dc52eba8fc0f"/>
+				<textElement textAlignment="Right">
+					<font size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tituloInicial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="354" y="530" width="232" height="157" forecolor="#000000" uuid="2f712925-a564-4c5e-b040-63d8fe8cf84f"/>
+				<textElement textAlignment="Right">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANÁLISIS DE BRECHAS DE GÉNERO EN PRUEBAS SABER]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="-9" y="746" width="176" height="24" backcolor="#313550" uuid="c59cf212-aaec-4a64-9e9f-c7ee793c73c4"/>
+				<graphicElement>
+					<pen lineColor="#313550"/>
+				</graphicElement>
+			</rectangle>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement x="13" y="750" width="150" height="20" forecolor="#FFFFFF" uuid="5b57614a-0b7b-42cc-b09a-4065d3dedea7"/>
+				<textElement>
+					<font size="14" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="416" y="47" width="126" height="35" uuid="9fccdbb1-42ea-4467-8d28-9dd71ddb5964"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[NGAPGE]]></text>
+			</staticText>
+			<line>
+				<reportElement x="416" y="81" width="103" height="1" uuid="d6a3f28a-c283-4c1f-8fbb-60f9274d8158"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineColor="#42DEDD"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="403" y="41" width="23" height="52" forecolor="#42DEDD" uuid="6545f153-24e7-42a5-a611-dce740ef566f"/>
+				<textElement>
+					<font size="40" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="42" splitType="Stretch">
+			<rectangle>
+				<reportElement x="3" y="3" width="591" height="5" forecolor="#FFFFFF" backcolor="#42DEDD" uuid="c683a8d6-1873-419d-b185-877045334ea1"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="139" y="13" width="455" height="5" forecolor="#FFFFFF" backcolor="#313550" uuid="8af9db77-550d-4d70-b4d5-19b950bc3876"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="325" y="24" width="269" height="5" forecolor="#FFFFFF" backcolor="#42DEDD" uuid="7ba1c4a6-1b2a-4dbc-a754-2fe73070f870"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="413" y="34" width="181" height="5" forecolor="#FFFFFF" backcolor="#313550" uuid="4a1cce1a-c2cb-4276-8b6c-523e3c879976"/>
+			</rectangle>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="7" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="695" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="86" width="500" height="79" uuid="923407f7-1c47-4482-b833-e680e01f97ad"/>
+				<textElement textAlignment="Justified">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Con los resultados de las pruebas saber se realizó un análisis de los puntajes obtenidos en matemáticas y lenguaje, con el fin de determinar cómo es el comportamiento de dicha información a través de los años]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="249" y="36" width="275" height="29" forecolor="#006699" uuid="9c0b31b2-9786-4d29-8a39-4dbc4ab78322"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tituloPie}]]></textFieldExpression>
+			</textField>
+			<pieChart>
+				<chart>
+					<reportElement x="59" y="175" width="439" height="271" uuid="5236a180-35b0-4d20-9cdf-51dc2d51ca91"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset maxCount="4">
+					<dataset>
+						<datasetRun subDataset="dataSetPieIndicador" uuid="5e3c9854-dbef-4b68-ada4-78c1de0a962e">
+							<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{datosReporte})]]></dataSourceExpression>
+						</datasetRun>
+					</dataset>
+					<keyExpression><![CDATA[$F{label}]]></keyExpression>
+					<valueExpression><![CDATA[$F{puntaje[0]}]]></valueExpression>
+					<labelExpression><![CDATA[(String.valueOf($F{puntaje[0]}*100)).substring( 0, 2 )+"%"]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot>
+						<seriesColor seriesOrder="0" color="#006666"/>
+						<seriesColor seriesOrder="1" color="#00C6D7"/>
+						<seriesColor seriesOrder="2" color="#052963"/>
+						<seriesColor seriesOrder="3" color="#FF6941"/>
+						<seriesColor seriesOrder="4" color="#3643A2"/>
+						<seriesColor seriesOrder="5" color="#D84A7E"/>
+						<seriesColor seriesOrder="6" color="#7C9D16"/>
+						<seriesColor seriesOrder="7" color="#983535"/>
+						<seriesColor seriesOrder="8" color="#354D4C"/>
+					</plot>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+			<rectangle>
+				<reportElement x="3" y="36" width="482" height="35" forecolor="#313550" backcolor="#313550" uuid="06d06d58-94c3-4fbb-966d-a5d6b71ada18"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="27" y="42" width="189" height="29" forecolor="#FFFFFF" uuid="2bc10b47-5413-481f-a308-f48981b1c029"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Análisis de indicador:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="124" y="42" width="275" height="29" forecolor="#FFFFFF" uuid="437f66b7-7637-4baa-8400-ffed08a1d35b"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tituloPie}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="695">
+			<break>
+				<reportElement x="0" y="12" width="540" height="1" uuid="e4615354-815c-48a7-a090-c0c301a3b6a2"/>
+			</break>
+			<barChart>
+				<chart>
+					<reportElement x="49" y="94" width="510" height="290" uuid="e83773db-ad3b-4f4a-b005-d055b76014f1"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="dataSetLineGenero" uuid="ffeda3dc-f50d-4bd2-9ad5-11840d1e2639">
+							<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{datoslineGenero})]]></dataSourceExpression>
+						</datasetRun>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Mujer"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{label}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{puntaje[0]}]]></valueExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Hombre"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{label}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{puntaje[1]}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot>
+						<seriesColor seriesOrder="0" color="#006666"/>
+						<seriesColor seriesOrder="1" color="#00C6D7"/>
+						<seriesColor seriesOrder="2" color="#052963"/>
+						<seriesColor seriesOrder="3" color="#FF6941"/>
+						<seriesColor seriesOrder="4" color="#3643A2"/>
+						<seriesColor seriesOrder="5" color="#D84A7E"/>
+						<seriesColor seriesOrder="6" color="#7C9D16"/>
+						<seriesColor seriesOrder="7" color="#983535"/>
+						<seriesColor seriesOrder="8" color="#354D4C"/>
+					</plot>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<staticText>
+				<reportElement x="27" y="41" width="492" height="20" forecolor="#313550" uuid="9421f348-8860-494a-972b-ca33e1cca040"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Análisis de los puntajes a través de los años]]></text>
+			</staticText>
+		</band>
+		<band height="695">
+			<break>
+				<reportElement x="0" y="12" width="550" height="1" uuid="73870846-b3dc-433a-82cc-c39b382bef3d"/>
+			</break>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="28" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="2" width="597" height="23" forecolor="#D0B48E" backcolor="#313550" uuid="5576c5f8-444d-4264-bcb9-0d9279117dab"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="540" y="3" width="40" height="13" forecolor="#FFFFFF" uuid="76871421-b4d9-4a73-9c98-b54c68b90f51"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="459" y="3" width="80" height="13" forecolor="#FFFFFF" uuid="4f534cca-d863-4ab0-a779-6dddc034c324"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="4" width="159" height="13" forecolor="#FFFFFF" uuid="9370ca59-4c9a-41b1-a906-acbcb6980ebb"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="262" y="0" width="9" height="23" forecolor="#FFFFFF" uuid="0b28982c-7fc8-4445-8b9a-c8cf4982edd6"/>
+					<textElement>
+						<font fontName="SansSerif" size="19"/>
+					</textElement>
+					<text><![CDATA[I]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="273" y="2" width="100" height="20" forecolor="#FFFFFF" uuid="046cab3f-2abc-41ab-ba36-c97f217b309a"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[NGAPGE]]></text>
+				</staticText>
+				<line>
+					<reportElement x="272" y="18" width="51" height="1" forecolor="#FFFFFF" uuid="85224c58-5ad5-467f-91ac-4025d43a016c"/>
+					<graphicElement>
+						<pen lineWidth="2.0" lineStyle="Double"/>
+					</graphicElement>
+				</line>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>

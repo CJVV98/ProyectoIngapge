@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition template="./templateUser.xhtml">
+            <ui:define name="content">   
+                <h:form>
+                    <div align="right">
+                        <p:commandButton value="Ayuda" onclick="PF('dlg3').show();" icon="fa fa-question-circle"/>
+                    </div>
+                    <p:dialog style="text-align: justify; border-color: #07526e;" header="¿Qué representan estos resultados?" widgetVar="dlg3" showEffect="explode" hideEffect="accordion" width="450" resizable="false">
+                        <h:outputText style="color: #07526e" value="A raíz del análisis predictivo realizado, se generaron ciertas reglas con un porcentaje de probabilidad, las cuales son aplicadas dentro de la lista de opciones de respuestas (según la prueba), 
+                                      que en términos del proyecto son indicadores de brecha de género relevantes para la predicción."/>
+                        <br/><br/>
+                        <h:outputText style="color: #07526e" value="De esta manera, se muestran los resultados probables de puntaje para cada núcleo temático, según las opciones elegidas." />
+                    </p:dialog>
+                    <center><h2 class="titulos">APLICACIÓN ANÁLISIS PREDICTIVO</h2>
+                        <br></br><br></br>   
+                        <div style="border-color: #008DE7">
+                            <h:outputLabel value="Seleccione la opción de su preferencia en cada caso "/>
+                            <h:panelGrid columns="2" style="margin-top: 30px;">
+                                <h:outputLabel value="Prueba: "/>
+                                <p:selectOneRadio value="#{aplicacionPredictivo.prueba}" style="margin-left: 10px" 
+                                                  onchange="submit()" valueChangeListener="#{aplicacionPredictivo.cargarPrueba}">
+                                    <f:selectItem itemValue="sb11_muestra" itemLabel="Saber 11" />
+                                    <f:selectItem itemValue="sabertyt_muestra" itemLabel="Saber TyT" />
+                                    <f:selectItem itemValue="saberpro_muestra" itemLabel="Saber Pro" />
+                                </p:selectOneRadio>
+                                <h:outputLabel value="Género: " style="margin-top: 20px;"/>
+                                <p:selectOneRadio value="#{aplicacionPredictivo.genero}" style="margin-top: 20px; margin-left: 10px"
+                                                  onchange="submit()" valueChangeListener="#{aplicacionPredictivo.cargarGenero}">
+                                    <f:selectItem itemValue="F" itemLabel="Femenino" />
+                                    <f:selectItem itemValue="M" itemLabel="Masculino" />
+                                </p:selectOneRadio>                        
+                                <h:outputLabel value="Educación madre: " style="margin-top: 20px;"/>
+                                <h:selectOneMenu  value="#{aplicacionPredictivo.cate1}" style=" margin-top: 20px; margin-left: 10px">
+                                    <f:selectItems value="#{aplicacionPredictivo.categoriasMadre}" itemValue="#{cate1}" itemLabel="#{cate1}"/>                                                                          
+                                </h:selectOneMenu>
+                                <h:outputLabel value="Educación padre: " style="margin-top: 20px"/>
+                                <h:selectOneMenu  value="#{aplicacionPredictivo.cate2}" style="margin-top: 20px; margin-left: 10px">
+                                    <f:selectItems value="#{aplicacionPredictivo.categoriasPadre}" itemValue="#{cate2}" itemLabel="#{cate2}"/>                                                                          
+                                </h:selectOneMenu>
+                                <h:outputLabel value="Estrato vivienda: " style="margin-top: 20px"/>
+                                <h:selectOneMenu  value="#{aplicacionPredictivo.cate3}" style="margin-top: 20px; margin-left: 10px">
+                                    <f:selectItems value="#{aplicacionPredictivo.categoriasTres}" itemValue="#{cate3}" itemLabel="#{cate3}" />                                                                          
+                                </h:selectOneMenu>
+                                <h:outputLabel value="#{aplicacionPredictivo.label4}" rendered="#{aplicacionPredictivo.ocultarLabel4}" style="margin-top: 20px"/>
+                                <h:selectOneMenu  value="#{aplicacionPredictivo.cate4}" rendered="#{aplicacionPredictivo.ocultarLabel4}" style="margin-top: 20px; margin-left: 10px">
+                                    <f:selectItems value="#{aplicacionPredictivo.categoriasCuatro}" itemValue="#{cate4}" itemLabel="#{cate4}" />                                                                          
+                                </h:selectOneMenu>
+                                <h:outputLabel value="Jornada del colegio: " rendered="#{aplicacionPredictivo.ocultarLabel}" style="margin-top: 20px"/>
+                                <h:selectOneMenu  value="#{aplicacionPredictivo.cate5}" rendered="#{aplicacionPredictivo.ocultarLabel}" style="margin-top: 20px; margin-left: 10px">
+                                    <f:selectItems value="#{aplicacionPredictivo.categoriasCinco}" itemValue="#{cate5}" itemLabel="#{cate5}"/>                                                                          
+                                </h:selectOneMenu>
+                            </h:panelGrid>
+                            <h:commandButton id="add" value="Analizar" actionListener="#{aplicacionPredictivo.generarPrediccion}"/>      
+                        </div>
+                        <br></br><br></br>
+                        <p:panel header="RESULTADOS" style="width: 40%; background: #31708f" rendered="#{aplicacionPredictivo.ocultar}">
+                            <h:dataTable class="fl-table" value = "#{aplicacionPredictivo.respuesta}" var = "prediccion" cellpadding="10" cellspacing="10">
+                                <h:column >
+                                    <f:facet name = "header" ><strong>Núcleo</strong></f:facet>
+                                    <h:outputText value="#{prediccion.nucleo}" style="font-weight: bold;"></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name = "header"><strong>Puntaje</strong></f:facet>
+                                    <h:outputText value="#{prediccion.puntaje}" style="font-weight: bold;"></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name = "header" ><strong>Probabilidad (%)</strong></f:facet>
+                                    <h:outputText value="#{prediccion.porcentaje}" style="font-weight: bold;"></h:outputText>
+                                </h:column>
+                            </h:dataTable>
+                        </p:panel>
+                    </center>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+
+        <h:form enctype="multipart/form-data" >
+            <div align="right">
+                <h:outputText value="Fecha: " class="h4"/>
+                <h:outputLabel value="#{vistaNotificaciones.fecha}"/>
+            </div>
+            <center>
+                <h3 class="titulos" align="left">NOTIFICACIONES PENDIENTES</h3>
+            </center>
+            <br></br>
+            <br></br>
+            <div align="right">
+                <h:commandButton image="/resources/images/informacion.png"  immediate="true" actionListener="#{vistaNotificaciones.cargarDialogo()}"  >
+                    <f:ajax execute="@all" render="@all" />
+                </h:commandButton>
+            </div>
+            <p:dialog id="dialo_ayuda"  style="text-align: justify;" header="AYUDA" widgetVar="dlg" resizable="false" modal="true" width="450" >
+                <br></br>
+                <h:outputText value="Para la corrección de documentos se debe tener en cuenta:" />
+                <br></br>
+                <h:outputText value="1. El archivo debe estar en formato .zip" />
+                <br></br>
+                <h:outputText value="2. El peso máximo permitido para el archivo zip es de 100MB" />
+            </p:dialog>
+
+            <h:panelGroup id="tb_notificaciones"  >
+                <div class="graph">
+                    <div class="tables">
+                        <h:outputText id="L_nombreCarga" value="Procesos pendientes de carga de resultados " style="font-weight:bold" ></h:outputText>
+                        <h:dataTable class="table table-hover" value = "#{vistaNotificaciones.listadoNotificaciones}"  var = "notificacion">
+                            <h:column>
+                                <f:facet name = "header" ><strong style="color:#052963">No</strong></f:facet>
+                                <h:outputText  value="#{vistaNotificaciones.listadoNotificaciones.indexOf(notificacion)+1}" ></h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name = "header"><strong style="color:#052963">Prueba</strong></f:facet>
+                                <h:outputText value="#{notificacion.prueba.substring(0,5).concat(' ').concat(notificacion.prueba.substring(5)) }" style="font-size: medium"></h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name = "header" ><strong style="color:#052963">Año</strong></f:facet>
+                                <h:outputText value="#{notificacion.ano}" style="font-size: medium"></h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name = "header" ><strong style="color:#052963">Tipo de resultados</strong></f:facet>
+                                <h:outputText value="#{notificacion.tipoResultado}" style="font-size: medium"  ></h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name = "header" ><strong style="color:#052963">Error</strong></f:facet>
+                                <h:outputText value="#{notificacion.mensaje}" style="font-size: medium"  ></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">  </f:facet>
+
+                                <h:commandButton  type="button" class="btn btn-lg btn-link" value="Corregir" onclick="$('#myModal').modal()" 
+                                                  style="position: relative;bottom: 12px; margin:1px;" >
+                                    <f:ajax listener="#{vistaNotificaciones.seleccion(notificacion)}"/>
+                                </h:commandButton>
+                                &nbsp;
+                                <h:commandButton id="bt_eliminar_proceso" type="button" class="btn btn-lg btn-link" style="position: relative;bottom: 12px; margin:1px;"
+                                                 value="Eliminar Proceso"  >
+                                    <f:ajax listener="#{vistaNotificaciones.eliminarProceso(notificacion)}" render="@all"/>
+                                </h:commandButton>
+
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                </div>
+            </h:panelGroup>
+              </h:form>
+            <p:growl id="message-info"  showDetail="true"  rendered="#{not facesContext.validationFailed}"  class="message-info" life="5000"  ></p:growl>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close second" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h2 class="modal-title">Correciones carga de resultados</h2>
+                        </div>
+                        <div class="modal-body">
+
+                            <h:outputText id="exampleInputFile"  value="Cargar resultados corregidos" ></h:outputText>
+
+                            <h:inputFile id="file_resultadosA" required="true"  value="#{vistaNotificaciones.archivoResultados}" requiredMessage="*" style="background:#0529634a; color: black; border:0px;"  >
+                             
+                            </h:inputFile>
+                            <h:message id="mensaje_resAcad" for="file_resultadosA" errorStyle="color: red" warnStyle="color: #ff9033" infoStyle="color: #40b738" />
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <h:commandButton type="button" class="btn blue" value="Guardar resultados"  >
+                                        <f:ajax listener="#{vistaNotificaciones.corregirArchivo()}" render="@all" execute="@form"/>
+                                    </h:commandButton>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="button" class="btn red" data-dismiss="modal" onclick="">Cancelar</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
+
+      
+    </ui:define>
+
+</ui:composition>
